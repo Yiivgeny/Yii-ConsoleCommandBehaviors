@@ -1,7 +1,6 @@
 <?php
 /**
  * Console command bahavior. Hack for protect exiting by memory leaks on console actions 
- * (example: actions used MongoDb GridFS)
  * 
  * @author Evgeny Blinov <e.a.blinov@gmail.com>
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
@@ -9,9 +8,9 @@
 
 /**
  * @author Evgeny Blinov <e.a.blinov@gmail.com>
- * @package W3ConsoleCommandBehaviors
+ * @package MemLeaksProtectorCommandBehavior
  */
-class W3ProtectLeaksCommandBehavior extends CConsoleCommandBehavior{
+class MemLeaksProtectorCommandBehavior extends CConsoleCommandBehavior{
     private $memoryLimit;
     private $processId;
     public  $processCount    = 1;
@@ -30,8 +29,8 @@ class W3ProtectLeaksCommandBehavior extends CConsoleCommandBehavior{
                     $this->afterFork();
                     if ($pid === -1) throw new CException("Can't fork");
                     elseif ($pid) {
-                        if ($iteration === 1) Yii::trace("Start action '{$event->action}' as pid ".$pid, 'ext.W3ConsoleCommandBehaviors.'.__CLASS__);
-                        else                  Yii::log ('Restart action', CLogger::LEVEL_WARNING, 'ext.W3ConsoleCommandBehaviors.'.__CLASS__);
+                        if ($iteration === 1) Yii::trace("Start action '{$event->action}' as pid ".$pid, 'ext.'.__CLASS__);
+                        else                  Yii::log ('Restart action', CLogger::LEVEL_WARNING, 'ext.'.__CLASS__);
                     }
                     else{
                         $this->processId = $i;

@@ -8,9 +8,9 @@
 
 /**
  * @author Evgeny Blinov <e.a.blinov@gmail.com>
- * @package W3ConsoleCommandBehaviors
+ * @package SingletonCommandBehavior
  */
-class W3SingletonCommandBehavior extends CConsoleCommandBehavior{
+class SingletonCommandBehavior extends CConsoleCommandBehavior{
 
     protected function getFilename($event){
         return Yii::app()->getRuntimePath().'/ConsoleCommand_'.get_class($event->sender).'-'.$event->action.'.action';
@@ -26,7 +26,7 @@ class W3SingletonCommandBehavior extends CConsoleCommandBehavior{
             ($pid = file_get_contents($filename)) &&
             $this->isActivePid($pid)
         ) {
-            Yii::log('Console command action already running as '.$pid, CLogger::LEVEL_WARNING, 'ext.W3ConsoleCommandBehaviors.'.__CLASS__);
+            Yii::log('Console command action already running as '.$pid, CLogger::LEVEL_WARNING, 'ext.'.__CLASS__);
             $event->continue = false;
             return;
         }
